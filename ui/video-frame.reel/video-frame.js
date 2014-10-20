@@ -37,10 +37,10 @@ exports.VideoFrame = Component.specialize(/** @lends VideoFrame# */ {
                 this._frameSrc = value;
                 if (!this._image) {
                     this._image = new Image();
-                    document.body.appendChild(this._image);
+                    /*document.body.appendChild(this._image);
                     this._image.style.width = "0";
                     this._image.style.height = "0";
-                    this._image.style.position = "absolute";
+                    this._image.style.position = "absolute";*/
                     this._image.addEventListener("load", this, false);
                 }
                 this._image.src = this._frameSrc;
@@ -50,6 +50,10 @@ exports.VideoFrame = Component.specialize(/** @lends VideoFrame# */ {
 
     handleLoad: {
         value: function () {
+            /*var canvas = document.createElement("canvas"),
+                context = canvas.getContext("2d");
+
+            context.drawImage(this._image, 0, 0);*/
             this._imageNeedsDraw = true;
             this.needsDraw = true;
         }
@@ -72,8 +76,8 @@ exports.VideoFrame = Component.specialize(/** @lends VideoFrame# */ {
         },
         set: function (value) {
             this._selection = value;
-            this._imageNeedsDraw = true;
-            this.needsDraw = true;
+            /*this._imageNeedsDraw = true;
+            this.needsDraw = true;*/
         }
     },
 
@@ -90,8 +94,8 @@ exports.VideoFrame = Component.specialize(/** @lends VideoFrame# */ {
             if (this.currentFrame) {
                 this.frameSrc = "assets/videos/" + this._selectedVideoId + "/frame-" + (((1000000 + Math.round(this.currentFrame)) + "").substr(1, 6)) + ".jpg";
             }
-            this._imageNeedsDraw = true;
-            this.needsDraw = true;
+            /*this._imageNeedsDraw = true;
+            this.needsDraw = true;*/
         }
     },
 
@@ -108,8 +112,8 @@ exports.VideoFrame = Component.specialize(/** @lends VideoFrame# */ {
             if (this.selectedVideoId) {
                 this.frameSrc = "assets/videos/" + this._selectedVideoId + "/frame-" + (((1000000 + Math.round(value)) + "").substr(1, 6)) + ".jpg";
             }
-            this._imageNeedsDraw = true;
-            this.needsDraw = true;
+            /*this._imageNeedsDraw = true;
+            this.needsDraw = true;*/
         }
     },
 
@@ -139,32 +143,39 @@ exports.VideoFrame = Component.specialize(/** @lends VideoFrame# */ {
 
     draw: {
         value: function () {
-            var margin = 0;
-
-                this.frameSrc = "assets/videos/" + this._selectedVideoId + "/frame-" + (((1000000 + Math.round(this._currentFrame)) + "").substr(1, 6)) + ".jpg";
-
+            this.frameSrc = "assets/videos/" + this._selectedVideoId + "/frame-" + (((1000000 + Math.round(this._currentFrame)) + "").substr(1, 6)) + ".jpg";
             if (this._imageNeedsDraw) {
-                if (this._image.width && this._image.height) {
+                if (this._image.complete) {
                     if (this.canvas.width !== this._image.width) {
                         this.canvas.width = this._image.width;
                     }
                     if (this.canvas.height !== this._image.height) {
                         this.canvas.height = this._image.height;
                     }
-                    if ((this.canvas.width - margin * 2) / (this.canvas.height - margin * 2) > (this._width - margin * 2) / (this._height - margin * 2)) {
-                        this.canvas.style.width = (this._width - margin * 2) + "px";
+                    if ((this.canvas.width) / (this.canvas.height) > (this._width) / (this._height)) {
+                        this.canvas.style.width = (this._width) + "px";
                         this.canvas.style.height = "auto";
                     } else {
                         this.canvas.style.width = "auto";
-                        this.canvas.style.height = (this._height - margin * 2) + "px";
+                        this.canvas.style.height = (this._height) + "px";
                     }
                     this._imageNeedsDraw = false;
                     this._context.drawImage(this._image, 0, 0);
                     this.drawCircles();
+
                 } else {
                     this._imageNeedsDraw = true;
                     this.needsDraw = true;
                 }
+            }
+        }
+    },
+
+    didDraw: {
+        value: function () {
+            if ((this._width !== this._element.offsetWidth) || (this._height !== this._element.offsetHeight)) {
+                this.needsDraw = true;
+                this._imageNeedsDraw = true;
             }
         }
     }
