@@ -76,8 +76,8 @@ exports.VideoFrame = Component.specialize(/** @lends VideoFrame# */ {
         },
         set: function (value) {
             this._selection = value;
-            /*this._imageNeedsDraw = true;
-            this.needsDraw = true;*/
+            this._imageNeedsDraw = true;
+            this.needsDraw = true;
         }
     },
 
@@ -94,8 +94,8 @@ exports.VideoFrame = Component.specialize(/** @lends VideoFrame# */ {
             if (this.currentFrame) {
                 this.frameSrc = "assets/videos/" + this._selectedVideoId + "/frame-" + (((1000000 + Math.round(this.currentFrame)) + "").substr(1, 6)) + ".jpg";
             }
-            /*this._imageNeedsDraw = true;
-            this.needsDraw = true;*/
+            this._imageNeedsDraw = true;
+            this.needsDraw = true;
         }
     },
 
