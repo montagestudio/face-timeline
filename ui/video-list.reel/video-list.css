@@ -1,0 +1,7 @@
+.VideoList {
+    background: #272727;
+    border-right: 1px solid black;
+    padding: 24px 16px;
+    box-sizing: border-box;
+    overflow: auto;
+}

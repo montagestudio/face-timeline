@@ -1,0 +1,197 @@
+.Timeline {
+    background: #272727;
+    overflow: hidden;
+}
+
+.Timeline .horizontalScrollbar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 16px;
+    bottom: 0;
+}
+
+.Timeline .timeBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(#252525),
+        to(#151515)
+    );
+    cursor: ew-resize;
+}
+
+.Timeline .timeBar > div {
+    position: absolute;
+    font-family: Helvetica, Arial, sans-serif;
+    top: 0;
+    color: #929292;
+    font-size: 11px;
+    line-height: 30px;
+    padding: 0 5px;
+}
+
+.Timeline .timeBar > div:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 200px;
+    width: 1px;
+    background: rgba(146, 146, 146, .1);
+}
+
+.Timeline .timeBar > .toolbar:before {
+    display: none;
+}
+
+.Timeline .tagsAndFaces {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 16px;
+    top: 30px;
+    overflow: auto;
+    padding: 10px 0;
+}
+
+.Timeline .face {
+    position: relative;
+    height: 44px;
+}
+
+.Timeline .barWrapper {
+    position: absolute;
+    top: 9px;
+    left: 0;
+    right: 0;
+    height: 24px;
+    border-top: 1px solid #1f1f1f;
+    border-bottom: 1px solid #3a3a3a;
+    background: #272727;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.5);
+}
+
+.Timeline .bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /*background-color: hsla(75, 84%, 39%, .2);*/
+    background-image: url(bar-bg.png);
+    background-size: 18px 18px;
+}
+
+.Timeline .block {
+    position: absolute;
+    width: 200px;
+    height: 10px;
+    margin-top: 6px;
+    border-radius: 3px;
+
+}
+
+.animateBlocks .Timeline .block,
+.animateBlocks .Timeline .currentFrameMark {
+    -webkit-transition: all 300ms linear;
+}
+
+.Timeline .currentFrameMark {
+    position: absolute;
+    width: 1px;
+    top: 0;
+    bottom: 16px;
+    left: 0;
+    background: #c7c7c7;
+    z-index: 1;
+    box-shadow: 0 0 4px rgba(0,0,0,.5);
+    opacity: .6;
+    cursor: col-resize;
+}
+
+.Timeline .currentFrameMark:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -10px;
+    right: -10px;
+    bottom: 0;
+    background: url(down-arrow.png);
+    background-size: 9px 7px;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+.Timeline .currentFrameMark:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -4px;
+    background: url(top-arrow.png);
+    background-size: 9px 7px;
+    background-repeat: no-repeat;
+    width: 9px;
+    height: 7px;
+}
+
+.Timeline .toolbar {
+    position: absolute;
+    z-index: 2;
+    left: 1px;
+    width: 99px;
+    height: 30px;
+    background: url(../../assets/ui/icons-shadow.png);
+    background-size: 99px 30px;
+    background-repeat: no-repeat;
+}
+
+.Timeline .arrow {
+    position: absolute;
+    width: 35px;
+    height: 30px;
+    left: 1px;
+    background: url(../../assets/ui/icons.png);
+    background-size: 99px 30px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    opacity: .35;
+}
+
+.Timeline .zoomIn {
+    position: absolute;
+    width: 28px;
+    height: 30px;
+    left: 36px;
+    background: url(../../assets/ui/icons.png);
+    background-size: 99px 30px;
+    background-position: -35px 0;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    opacity: .35;
+}
+
+.Timeline .zoomOut {
+    position: absolute;
+    width: 36px;
+    height: 30px;
+    left: 64px;
+    background: url(../../assets/ui/icons.png);
+    background-size: 99px 30px;
+    background-position: -63px 0;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    opacity: .35;
+}
+
+.Timeline .arrow.selected,
+.Timeline .zoomIn.selected,
+.Timeline .zoomOut.selected {
+    opacity: 1;
+}

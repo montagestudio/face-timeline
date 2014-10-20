@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="face-row.css">
+    <script type="text/montage-serialization">
+    {
+        "owner": {
+            "properties": {
+                "element": {"#": "owner"},
+                "bar": {"#": "bar"},
+                "facePhoto": {"#": "facePhoto"}
+            }
+        },
+        "bar": {
+            "prototype": "montage/ui/repetition.reel",
+            "properties": {
+                "element": {"#": "bar"}
+            },
+            "bindings": {
+                "content": {"<-": "@owner.blocks"}
+            }
+        },
+        "block": {
+            "prototype": "ui/block.reel",
+            "properties": {
+                "element": {"#": "block"}
+            },
+            "bindings": {
+                "positions": {"<-": "@bar:iteration.object"},
+                "duration": {"<-": "@owner.duration"},
+                "zoom": {"<-": "@owner.zoom"},
+                "offset": {"<-": "@owner.offset"},
+                "width": {"<-": "@owner.width"},
+                "color": {"<-": "@owner._face.color"}
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <div data-montage-id="owner" class="FaceRow">
+        <div data-montage-id="facePhoto" class="facePhoto"></div>
+        <div class="barWrapper">
+            <div data-montage-id="bar" class="bar">
+                <div data-montage-id="block" class="block"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

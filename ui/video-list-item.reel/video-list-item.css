@@ -1,0 +1,33 @@
+.VideoListItem {
+    width: 144px;
+    height: 90px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+    border: 4px solid black;
+    margin-bottom: 40px;
+    position: relative;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .65), 0 4px 12px -1px rgba(0,0,0,.5);
+    cursor: pointer;
+}
+
+.VideoListItem .name {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #afafaf;
+    font-size: 12px;
+    line-height: 20px;
+    position: absolute;
+    width: 144px;
+    top: 97px;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,.8);
+}
+
+.VideoListItem.selected {
+    border: 4px solid #ddd;
+    box-shadow: inset 0 0 6px rgba(200, 200, 200, .65), 0 0 8px rgba(200,200,200,.4);
+}
+
+.VideoListItem.selected .name {
+    color: #ddd;
+}

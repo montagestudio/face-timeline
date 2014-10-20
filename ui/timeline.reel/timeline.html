@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="timeline.css">
+    <script type="text/montage-serialization">
+    {
+        "owner": {
+            "properties": {
+                "element": {"#": "owner"},
+                "timeBar": {"#": "timeBar"},
+                "currentFrameMark": {"#": "currentFrameMark"},
+                "arrow": {"#": "arrow"},
+                "zoomIn": {"#": "zoomIn"},
+                "zoomOut": {"#": "zoomOut"},
+                "selectedTool": {"#": "arrow"},
+                "tagsAndFaces": {"#": "tagsAndFaces"}
+            }
+        },
+        "horizontalScrollbar": {
+            "prototype": "ui/horizontal-scrollbar.reel",
+            "properties": {
+                "element": {"#": "horizontalScrollbar"}
+            },
+            "bindings": {
+                "handleLength": {"<-": "100 / @owner.zoom"},
+                "offset": {"<->": "@owner.unitaryOffset"}
+            }
+        },
+        "tagsAndFaces": {
+            "prototype": "montage/ui/repetition.reel",
+            "properties": {
+                "element": {"#": "tagsAndFaces"}
+            },
+            "bindings": {
+                "content": {"<-": "@owner.facesInVideo"}
+            }
+        },
+        "faceRow": {
+            "prototype": "ui/face-row.reel",
+            "properties": {
+                "element": {"#": "face"},
+                "timeline": {"@": "owner"}
+            },
+            "bindings": {
+                "face": {"<-": "@tagsAndFaces:iteration.object"},
+                "selectedVideoId": {"<-": "@owner.selectedVideoId"},
+                "duration": {"<-": "@owner.duration"},
+                "zoom": {"<-": "@owner.zoom"},
+                "offset": {"<-": "@owner.offset"},
+                "width": {"<-": "@owner._timeBarWidth"}
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <div data-montage-id="owner" class="Timeline">
+        <div data-montage-id="currentFrameMark" class="currentFrameMark"></div>
+        <div data-montage-id="timeBar" class="timeBar">
+            <div class="toolbar">
+                <div data-montage-id="arrow" class="arrow"></div>
+                <div data-montage-id="zoomIn" class="zoomIn"></div>
+                <div data-montage-id="zoomOut" class="zoomOut"></div>
+            </div>
+        </div>
+        <div data-montage-id="tagsAndFaces" class="tagsAndFaces">
+            <div data-montage-id="face" class="face"></div>
+        </div>
+        <div data-montage-id="horizontalScrollbar" class="horizontalScrollbar"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+.Main {}
+
+.Main .timeline {
+    position: absolute;
+    bottom: 0;
+    left: 184px;
+    right: 0;
+    height: 200px;
+}
+
+.Main .videoFrame {
+    position: absolute;
+    top: 0;
+    left: 184px;
+    right: 0;
+    bottom: 200px;
+}
+
+.Main .videoList {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 184px;
+    bottom: 0;
+}

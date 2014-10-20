@@ -1,0 +1,34 @@
+.HorizontalScrollbar {
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(#151515),
+        to(#252525)
+    );
+}
+
+.HorizontalScrollbar .handle {
+    position: absolute;
+    padding-left: 16px;
+    border-radius: 999px;
+    top: 4px;
+    bottom: 4px;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(#505050),
+        to(#444)
+    );
+}
+
+.HorizontalScrollbar .handle:active {
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(#363636),
+        to(#404040)
+    );
+}

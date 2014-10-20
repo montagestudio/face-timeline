@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Main</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+    <script type="text/montage-serialization">
+        {
+            "owner": {
+                "properties": {
+                    "element": {"#": "main"}
+                },
+                "bindings": {
+                    "selected": {"<-": "@videoList.selected"}
+                }
+            },
+            "videoFrame": {
+                "prototype": "ui/video-frame.reel",
+                "properties": {
+                    "element": {"#": "videoFrame"}
+                },
+                "bindings": {
+                    "faces": {"<-": "@owner.faces"},
+                    "selectedVideoId": {"<-": "@owner.selectedVideoId"},
+                    "currentFrame": {"<-": "@timeline.currentFrame"},
+                    "selection": {"<-": "@owner.selection"}
+                }
+            },
+            "timeline": {
+                "prototype": "ui/timeline.reel",
+                "properties": {
+                    "element": {"#": "timeline"},
+                    "main": {"@": "owner"}
+                },
+                "bindings": {
+                    "duration": {"<-": "@owner.numberOfFrames"},
+                    "selectedVideoId": {"<-": "@owner.selectedVideoId"},
+                    "faces": {"<-": "@owner.faces"},
+                    "selection": {"<-": "@owner.selection"}
+                }
+            },
+            "videoList": {
+                "prototype": "ui/video-list.reel",
+                "properties": {
+                    "element": {"#": "videoList"}
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div data-montage-id="main" class="Main">
+        <div data-montage-id="videoList" class="videoList"></div>
+        <div data-montage-id="videoFrame" class="videoFrame"></div>
+        <div data-montage-id="timeline" class="timeline"></div>
+    </div>
+</body>
+</html>
