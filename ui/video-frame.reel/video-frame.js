@@ -19,51 +19,51 @@ exports.VideoFrame = Component.specialize(/** @lends VideoFrame# */ {
 
     handleResize: {
         value: function () {
-            this._imageNeedsDraw = true;
+            this._needsRefresh = true;
             this.needsDraw = true;
         }
     },
 
-    _frameSrc: {
+    _isProcessingImage: {
+        value: false
+    },
+
+    _scheduledFrame: {
         value: null
     },
 
-    frameSrc: {
-        get: function () {
-            return this._frameSrc;
-        },
-        set: function (value) {
-            if (this._frameSrc !== value) {
-                this._frameSrc = value;
+    tryToLoadFrame: {
+        value: function () {
+            this._scheduledFrame = "assets/videos/" + this._selectedVideoId + "/frame-" + (((1000000 + Math.round(this._currentFrame)) + "").substr(1, 6)) + ".jpg";
+            if (!this._isProcessingImage && (this._currentImage !== this._scheduledFrame)) {
+                this._isProcessingImage = true;
                 if (!this._image) {
                     this._image = new Image();
-                    /*document.body.appendChild(this._image);
-                    this._image.style.width = "0";
-                    this._image.style.height = "0";
-                    this._image.style.position = "absolute";*/
                     this._image.addEventListener("load", this, false);
+                    this._image.addEventListener("error", this, false);
+                    document.body.appendChild(this._image);
+                    this._image.style.display = "none";
                 }
-                this._image.src = this._frameSrc;
+                this._image.src = this._scheduledFrame;
+                this._currentImage = this._scheduledFrame;
             }
+        }
+    },
+
+    handleError: {
+        value: function () {
+            this.needsDraw = true;
         }
     },
 
     handleLoad: {
         value: function () {
-            /*var canvas = document.createElement("canvas"),
-                context = canvas.getContext("2d");
-
-            context.drawImage(this._image, 0, 0);*/
-            this._imageNeedsDraw = true;
             this.needsDraw = true;
         }
     },
 
-    willDraw: {
-        value: function () {
-            this._width = this._element.offsetWidth;
-            this._height = this._element.offsetHeight;
-        }
+    _needsRefresh: {
+        value: true
     },
 
     _selection: {
@@ -76,7 +76,7 @@ exports.VideoFrame = Component.specialize(/** @lends VideoFrame# */ {
         },
         set: function (value) {
             this._selection = value;
-            this._imageNeedsDraw = true;
+            this._needsRefresh = true;
             this.needsDraw = true;
         }
     },
@@ -91,10 +91,6 @@ exports.VideoFrame = Component.specialize(/** @lends VideoFrame# */ {
         },
         set: function (value) {
             this._selectedVideoId = value;
-            if (this.currentFrame) {
-                this.frameSrc = "assets/videos/" + this._selectedVideoId + "/frame-" + (((1000000 + Math.round(this.currentFrame)) + "").substr(1, 6)) + ".jpg";
-            }
-            this._imageNeedsDraw = true;
             this.needsDraw = true;
         }
     },
@@ -109,11 +105,7 @@ exports.VideoFrame = Component.specialize(/** @lends VideoFrame# */ {
         },
         set: function (value) {
             this._currentFrame = value;
-            if (this.selectedVideoId) {
-                this.frameSrc = "assets/videos/" + this._selectedVideoId + "/frame-" + (((1000000 + Math.round(value)) + "").substr(1, 6)) + ".jpg";
-            }
-            /*this._imageNeedsDraw = true;
-            this.needsDraw = true;*/
+            this.needsDraw = true;
         }
     },
 
@@ -141,10 +133,17 @@ exports.VideoFrame = Component.specialize(/** @lends VideoFrame# */ {
         }
     },
 
+    willDraw: {
+        value: function () {
+            this._width = this._element.offsetWidth;
+            this._height = this._element.offsetHeight;
+            this.tryToLoadFrame();
+        }
+    },
+
     draw: {
         value: function () {
-            this.frameSrc = "assets/videos/" + this._selectedVideoId + "/frame-" + (((1000000 + Math.round(this._currentFrame)) + "").substr(1, 6)) + ".jpg";
-            if (this._imageNeedsDraw) {
+            if (this._isProcessingImage || this._needsRefresh) {
                 if (this._image.complete) {
                     if (this.canvas.width !== this._image.width) {
                         this.canvas.width = this._image.width;
@@ -159,23 +158,14 @@ exports.VideoFrame = Component.specialize(/** @lends VideoFrame# */ {
                         this.canvas.style.width = "auto";
                         this.canvas.style.height = (this._height) + "px";
                     }
-                    this._imageNeedsDraw = false;
                     this._context.drawImage(this._image, 0, 0);
                     this.drawCircles();
-
+                    this._isProcessingImage = false;
+                    this._needsRefresh = false;
+                    this.tryToLoadFrame();
                 } else {
-                    this._imageNeedsDraw = true;
                     this.needsDraw = true;
                 }
-            }
-        }
-    },
-
-    didDraw: {
-        value: function () {
-            if ((this._width !== this._element.offsetWidth) || (this._height !== this._element.offsetHeight)) {
-                this.needsDraw = true;
-                this._imageNeedsDraw = true;
             }
         }
     }
