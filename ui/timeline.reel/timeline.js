@@ -192,7 +192,7 @@ exports.Timeline = Component.specialize(/** @lends Timeline# */ {
                     switch (this.selectedTool) {
                         case this.arrow:
                             this.main.element.classList.remove("animateBlocks");
-                            this.currentFrame = this.computeFrame(event.pageX - 260);
+                            this.currentFrame = this.computeFrame(event.pageX - 184);
                             break;
                         case this.zoomIn:
                             this.zoom *= 1.3;
